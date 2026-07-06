@@ -1,0 +1,9 @@
+id: ecommerce
+type: base
+version: 0.1.0
+engineApi: ^0.1.0
+label:
+  en: "Online store essentials"
+  vi: "Câu hỏi cốt lõi cho cửa hàng online"
+description:
+  en: "Buying questions every online store gets asked in AI answers"

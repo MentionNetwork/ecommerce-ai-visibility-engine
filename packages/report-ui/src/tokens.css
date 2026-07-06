@@ -1,0 +1,84 @@
+/**
+ * Mention Network design tokens — single source of truth for report-ui,
+ * consumed by apps/web, apps/desktop renderer, and the cloud webapp.
+ *
+ * Provenance: extracted 2026-07-05 from the "🎨 Design System" frame in
+ * "Mention Network Shopify App.pen" (component-level values; the .pen file's
+ * variable table belongs to an unrelated frame and was intentionally ignored).
+ * Style direction: Polaris-adjacent, light, Inter.
+ *
+ * NOTE: the commercial Shopify App does NOT use these tokens — embedded apps
+ * follow @shopify/polaris by design.
+ */
+:root {
+  /* Brand */
+  --mn-brand: #0052ff;
+  --mn-brand-accent: #5de1f6;
+  --mn-focus-ring: rgba(0, 82, 255, 0.15);
+
+  /* Text */
+  --mn-text-strong: #1a1d21;      /* report & PDF headings */
+  --mn-text-primary: #303030;
+  --mn-text-secondary: #616161;
+  --mn-text-placeholder: #8a8a8a;
+  --mn-text-overline: #98a1a9;    /* uppercase section labels */
+  --mn-text-inverse: #ffffff;
+
+  /* Surfaces */
+  --mn-bg-app: #f6f6f7;
+  --mn-bg-surface: #ffffff;
+  --mn-bg-subtle: #f1f1f1;        /* tab tracks, thumbnails */
+  --mn-bg-muted: #f6f8fb;         /* tertiary buttons inside cards */
+
+  /* Borders */
+  --mn-border: #e3e3e3;           /* inputs, cards */
+  --mn-border-soft: #ebebeb;      /* row separators */
+  --mn-border-card: #e6ecf2;      /* report cards, top bar */
+  --mn-divider: #f0f2f5;
+
+  /* Primary action (dark button per DS: gradient #303030 → #3d3d3d) */
+  --mn-action: #303030;
+  --mn-action-hover: #3d3d3d;
+
+  /* Status */
+  --mn-success-bg: #cdfed4;
+  --mn-success-fg: #014b40;
+  --mn-info-bg: #eaf4ff;
+  --mn-info-fg: #003a5a;
+  --mn-danger-bg: #fee2e1;        /* TODO: verify exact value against .pen "Not Mentioned" state */
+  --mn-danger-fg: #8e1f0b;        /* TODO: verify exact value against .pen */
+
+  /* Charts (visibility bars, share-of-voice) */
+  --mn-chart-fill: var(--mn-brand);
+  --mn-chart-track: #e3e8ef;
+
+  /* Typography */
+  --mn-font: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --mn-text-3xl: 30px;            /* report title */
+  --mn-text-2xl: 24px;            /* section titles */
+  --mn-text-base: 14px;           /* body, inputs */
+  --mn-text-sm: 13px;
+  --mn-text-xs: 12px;             /* buttons, badges */
+  --mn-text-2xs: 11px;            /* overlines (letter-spacing 0.4px) */
+
+  /* Radii */
+  --mn-radius-sm: 8px;            /* buttons, inputs */
+  --mn-radius-md: 12px;           /* cards, banners */
+  --mn-radius-lg: 16px;           /* modals */
+  --mn-radius-pill: 999px;        /* badges */
+
+  /* Shadows */
+  --mn-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --mn-shadow-button: 0 1px 1px rgba(0, 0, 0, 0.15);
+  --mn-shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --mn-shadow-modal: 0 12px 32px rgba(0, 0, 0, 0.18);
+
+  /* Spacing (observed rhythm: 4 base) */
+  --mn-space-1: 4px;
+  --mn-space-2: 8px;
+  --mn-space-3: 12px;
+  --mn-space-4: 16px;
+  --mn-space-5: 20px;
+  --mn-space-6: 24px;
+  --mn-space-8: 32px;
+}

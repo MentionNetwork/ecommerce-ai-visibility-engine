@@ -1,0 +1,10 @@
+intent: price
+label: { en: "Cheapest", vi: "Giá rẻ nhất" }
+description: { en: "Shoppers ask AI where this product is cheapest" }
+weight: 0.8
+capability: price
+tier: core
+funnel: decision
+prompts:
+  - template: "Cheapest {product} in {city}"
+    tags: { branded: false, geo: city }

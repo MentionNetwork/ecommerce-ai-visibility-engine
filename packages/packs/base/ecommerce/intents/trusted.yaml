@@ -1,0 +1,12 @@
+intent: trusted
+label: { en: "Best / trusted place", vi: "Nơi mua uy tín" }
+description: { en: "Shoppers ask AI for the best or most trusted place to buy" }
+weight: 0.9
+capability: trust
+tier: core
+funnel: consideration
+prompts:
+  - template: "Best place to buy {product} in {city}"
+    tags: { branded: false, geo: city }
+  - template: "Is {store} a trusted store to buy {category}"
+    tags: { branded: true, geo: none }

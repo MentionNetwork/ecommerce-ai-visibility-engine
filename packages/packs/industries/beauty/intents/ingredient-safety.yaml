@@ -1,0 +1,9 @@
+intent: ingredient-safety
+label: { en: "Ingredient safety", vi: "Thành phần có an toàn?" }
+description: { en: "Shoppers ask AI whether ingredients are safe for their skin" }
+weight: 0.7
+capability: trust
+funnel: consideration
+prompts:
+  - template: "Is {product} safe for sensitive skin"
+    tags: { branded: true, geo: none }

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mention.network/schemas/pack-0.1.0.json",
+  "title": "Mention Network Pack",
+  "description": "A pack is pure data: the buying questions shoppers ask AI — the base commerce pack or an industry pack. Apache-2.0 — build on this format freely.",
+  "type": "object",
+  "required": ["id", "type", "version", "engineApi", "label"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "type": { "enum": ["base", "industry"] },
+    "extends": { "type": "string", "description": "Required for industry packs, e.g. base/ecommerce" },
+    "version": { "type": "string" },
+    "engineApi": { "type": "string", "description": "semver range of the engine pack API" },
+    "label": { "$ref": "#/$defs/localized" },
+    "description": { "$ref": "#/$defs/localized" }
+  },
+  "$defs": {
+    "localized": {
+      "type": "object",
+      "required": ["en"],
+      "properties": { "en": { "type": "string" } },
+      "additionalProperties": { "type": "string" }
+    },
+    "intent": {
+      "type": "object",
+      "required": ["intent", "label", "weight", "capability", "prompts"],
+      "properties": {
+        "intent": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "label": { "$ref": "#/$defs/localized" },
+        "description": { "$ref": "#/$defs/localized" },
+        "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+        "capability": { "enum": ["price", "shipping", "availability", "trust", "presence"] },
+        "tier": { "enum": ["core", "pack", "user"] },
+        "funnel": { "enum": ["discovery", "consideration", "decision"] },
+        "prompts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["template", "tags"],
+            "properties": {
+              "template": { "type": "string", "description": "May use {product} {store} {city} {category} placeholders" },
+              "tags": {
+                "type": "object",
+                "required": ["branded", "geo"],
+                "properties": {
+                  "branded": { "type": "boolean" },
+                  "geo": { "enum": ["none", "city", "country"] }
+                }
+              },
+              "variants": {
+                "type": "array",
+                "items": { "type": "object", "required": ["lang"], "properties": { "lang": { "type": "string" }, "template": { "type": "string" } } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

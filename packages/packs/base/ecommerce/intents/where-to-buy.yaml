@@ -1,0 +1,13 @@
+intent: where-to-buy
+label: { en: "Where to buy", vi: "Mua ở đâu" }
+description: { en: "Shoppers ask AI where to buy this product" }
+weight: 1.0
+capability: presence
+tier: core
+funnel: discovery
+prompts:
+  - template: "Where to buy {product} in {city}"
+    tags: { branded: false, geo: city }
+    variants: [ { lang: en }, { lang: ar }, { lang: vi } ]
+  - template: "Where can I buy {product} online"
+    tags: { branded: false, geo: none }

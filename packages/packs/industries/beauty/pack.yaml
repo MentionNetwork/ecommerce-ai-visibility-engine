@@ -1,0 +1,10 @@
+id: beauty
+type: industry
+extends: base/ecommerce
+version: 0.1.0
+engineApi: ^0.1.0
+label:
+  en: "Beauty"
+  vi: "Mỹ phẩm & làm đẹp"
+description:
+  en: "Questions shoppers ask AI about beauty and skincare products"

@@ -1,0 +1,33 @@
+{
+  "name": "@mention-network/report-ui",
+  "version": "0.1.0",
+  "description": "React components for the ecommerce visibility report (Market Position, per-engine, per-intent). Props in, render out — no fetching, no billing.",
+  "license": "FSL-1.1-ALv2",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "echo 'no tests yet'"
+  },
+  "dependencies": {
+    "@mention-network/shared": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "src/tokens.css"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "react": "^19.2.7",
+    "typescript": "^5.7.0"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@mention-network/desktop",
+  "version": "0.1.0",
+  "description": "Mention Network macOS app — paste your store URL, pick a product, get an AI visibility report.",
+  "private": true,
+  "license": "FSL-1.1-ALv2",
+  "main": "out/main/index.mjs",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "echo 'no tests yet'"
+  },
+  "dependencies": {
+    "@mention-network/report-ui": "workspace:*",
+    "@mention-network/shared": "workspace:*",
+    "js-yaml": "^5.2.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "electron": "^43.0.0",
+    "electron-vite": "^5.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^8.1.3"
+  }
+}

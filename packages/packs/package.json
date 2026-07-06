@@ -1,0 +1,14 @@
+{
+  "name": "@mention-network/packs",
+  "version": "0.1.0",
+  "license": "FSL-1.1-ALv2 (schema/: Apache-2.0)",
+  "description": "Pack data: the base commerce pack (universal buying intents) + industry packs. Schema under schema/ is Apache-2.0.",
+  "scripts": {
+    "build": "echo 'data package'",
+    "test": "node validate.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "js-yaml": "^5.2.1"
+  }
+}

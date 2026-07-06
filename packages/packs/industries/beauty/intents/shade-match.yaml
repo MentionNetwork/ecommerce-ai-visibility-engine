@@ -1,0 +1,9 @@
+intent: shade-match
+label: { en: "Shade match", vi: "Hợp tông" }
+description: { en: "Shoppers ask AI which shade or variant suits them" }
+weight: 0.5
+capability: presence
+funnel: consideration
+prompts:
+  - template: "Which shade of {product} suits {category}"
+    tags: { branded: false, geo: none }

@@ -1,0 +1,11 @@
+intent: authenticity
+label: { en: "Is it authentic?", vi: "Có phải hàng chính hãng?" }
+description: { en: "Shoppers ask AI whether products on a store are genuine" }
+weight: 0.8
+capability: trust
+funnel: consideration
+prompts:
+  - template: "Is {product} sold on {store} authentic"
+    tags: { branded: true, geo: none }
+  - template: "How to avoid fake {category} when buying online in {city}"
+    tags: { branded: false, geo: city }

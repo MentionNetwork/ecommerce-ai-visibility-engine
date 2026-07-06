@@ -1,0 +1,10 @@
+intent: shipping
+label: { en: "Fastest shipping", vi: "Giao nhanh nhất" }
+description: { en: "Shoppers ask AI who delivers this product fastest" }
+weight: 0.7
+capability: shipping
+tier: core
+funnel: decision
+prompts:
+  - template: "Fastest delivery for {product} in {city}"
+    tags: { branded: false, geo: city }

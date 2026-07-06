@@ -1,0 +1,12 @@
+{
+  "name": "@mention-network/connector-sdk",
+  "version": "0.1.0",
+  "description": "SiteConnector interface — read product facts, run audits, and apply fixes on a store platform. Apache-2.0.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit", "test": "vitest run" },
+  "dependencies": { "@mention-network/shared": "workspace:*" },
+  "devDependencies": { "vitest": "^2.1.8", "@types/node": "^22.10.0" }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@mention-network/provider-mention-cloud",
+  "version": "0.1.0",
+  "description": "Mention Cloud sampling provider — managed sampling, geo-located answers, engines without an API, and continuously-refreshed competitor pricing.",
+  "license": "FSL-1.1-ALv2",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit", "test": "echo 'no tests yet'" },
+  "dependencies": { "@mention-network/engine": "workspace:*" }
+}

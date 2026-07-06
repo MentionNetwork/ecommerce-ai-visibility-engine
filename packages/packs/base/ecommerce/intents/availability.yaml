@@ -1,0 +1,12 @@
+intent: availability
+label: { en: "In stock", vi: "Còn hàng" }
+description: { en: "Shoppers ask AI who has this product in stock right now" }
+weight: 0.6
+capability: availability
+tier: core
+funnel: decision
+prompts:
+  - template: "Who has {product} in stock in {city}"
+    tags: { branded: false, geo: city }
+  - template: "Is {product} available online right now"
+    tags: { branded: false, geo: none }

@@ -1,0 +1,12 @@
+{
+  "name": "@mention-network/shared",
+  "version": "0.1.0",
+  "description": "Cross-package commerce contracts: Store, Product, Offer, Retailer, Intent, SampleResult, Report, Prescription.",
+  "license": "FSL-1.1-ALv2",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit", "test": "vitest run", "test:watch": "vitest" },
+  "dependencies": {},
+  "devDependencies": { "vitest": "^2.1.8", "@types/node": "^22.10.0" }
+}
