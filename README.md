@@ -91,6 +91,38 @@ connectors/            official connectors (shopify · woocommerce)
 apps/                  server · web · cli · desktop
 ```
 
+---
+
+# 🛍️ Shopify App
+
+The Shopify integration ships as a **Shopify App** — the native artifact Shopify merchants already know, installed in a click from the Shopify Admin. Under the hood it's `mn-connector-shopify`, a `SiteConnector` that plugs your store into the Mention Network engine. The engine core never learns it's Shopify; it only speaks `SiteConnector` and `Prescription`, and the app is the native skin over those contracts.
+
+**How it integrates — a diagnose → prescribe → treat loop:**
+
+1. **Install & authorize (OAuth).** The merchant installs the Shopify App and approves a **read-first** scope set (`read_products`, `read_content`, `read_shop`). No write access is granted up front.
+2. **Diagnose (read).** The app reads your catalog through the Admin GraphQL API — products, variants, prices, inventory, metafields, pages, structured data — and feeds two things at once:
+   - the engine's **product facts** (your true price / stock / variants) so scoring can compute price-rank and catch AI fact errors;
+   - the **on-store audit** (Product/Offer schema, content quality, served-vs-rendered HTML).
+3. **Prescribe.** Mention Network turns the report's gaps into a **platform-agnostic `Prescription`** — an ordered list of fixes (add Offer schema, fill a metafield, publish a comparison snippet…).
+4. **Treat (write, opt-in).** When you approve a fix, the app requests `write_products` **at runtime** (never on install) and the connector translates the Prescription into native operations: `productUpdate` / metafields for content and SEO, and JSON-LD schema via a **Theme App Extension (App Embed Block)** — enabled once, no `write_themes` scope needed. Every change runs **dry-run → apply → rollback**, so nothing touches your live store without a preview you approve, and everything is reversible.
+
+**Distribution & safety.** Published as a Shopify App (App Store / custom install); read is the *diagnosis*, write is the *treatment*; capabilities are declared before connecting; in self-host, credentials never leave your session.
+
+# 🧩 WooCommerce Plugin
+
+The WooCommerce integration ships as a **WooCommerce plugin** — a WordPress plugin distributed via wordpress.org / the WooCommerce marketplace (GPLv2), the artifact WooCommerce merchants already install from their WP Admin. Two halves work together: the **PHP plugin** on the store, and `mn-connector-woocommerce`, the `SiteConnector` that connects it to the Mention Network engine through the same `Prescription` contract as Shopify.
+
+**How it integrates — the same loop, native to WooCommerce:**
+
+1. **Install & authorize (REST API key).** The merchant installs the plugin, then generates a WooCommerce **REST API key pair** (consumer key + secret) under *WooCommerce → Settings → Advanced → REST API*. The connector's built-in setup guide renders these steps automatically.
+2. **Diagnose (read).** It reads the catalog through the WooCommerce REST API — products, variations, prices, stock, categories — plus the served HTML for schema and rendering checks, feeding the engine's **product facts** and the **on-store audit**.
+3. **Prescribe.** Mention Network produces the **same platform-agnostic `Prescription`** — no Shopify-specific or WooCommerce-specific logic in the engine.
+4. **Treat (write).** The plugin applies fixes natively: product meta / content via the REST API, and JSON-LD schema + meta injected **server-side by the PHP plugin** so they land in the *served* HTML — exactly what AI crawlers read, with no JavaScript-render trap. **dry-run → apply → rollback** on every change.
+
+**A note on naming.** It's a **WooCommerce** plugin, not a generic "WordPress plugin": it reads WooCommerce product data (prices, stock, variations) and does nothing useful on a WordPress site without WooCommerce. The ecommerce focus is the point.
+
+> **One engine, native integrations.** Both connectors are the same shape — `detect → connect → read → (plan → dry-run → apply → rollback)` — differing only in auth and how they translate a `Prescription` into platform-native operations. New platforms (Magento, BigCommerce, Wix, custom sites via a snippet) plug in the same way; see [connector-template](https://github.com/MentionNetwork/connector-template).
+
 ## License
 
 - **Engine & apps:** [FSL-1.1-ALv2](./LICENSE.md) — free to use, self-host, fork, and modify. You can't sell a competing product with it for 2 years; after that, each version automatically becomes Apache-2.0. We think that's fair.
