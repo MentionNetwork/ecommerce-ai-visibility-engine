@@ -90,6 +90,7 @@ export interface Product {
   id: string;
   title: string;
   category: string;
+  url?: string;
   /** Industry key used to select an industry pack (e.g. "beauty"); undefined → base commerce pack only. */
   industry?: string;
   brand?: string;
@@ -179,4 +180,78 @@ export interface Prescription {
   target: { storeId: string; productId: string };
   actions: PrescriptionAction[];
   createdAt: string;
+}
+
+// ── Audit rubric ─────────────────────────────────────────────
+export type CriterionWeight = "critical" | "high" | "medium";
+export type AuditArea = "on_store" | "off_store" | "offer";
+export type CriterionScope = "store" | "product_page";
+
+export const WEIGHT_FACTOR: Record<CriterionWeight, number> = { critical: 3, high: 2, medium: 1 };
+
+export interface Criterion {
+  id: string;
+  label: Record<string, string>;
+  group: string;
+  area: AuditArea;
+  weight: CriterionWeight;
+  scope: CriterionScope;
+  check: string;
+  params?: Record<string, string>;
+  scoring: Record<"0" | "50" | "100", string>;
+}
+
+export interface AuditPack {
+  id: string;
+  type: "audit";
+  area: AuditArea;
+  version: string;
+  engineApi: string;
+  label: Record<string, string>;
+  criteria: Criterion[];
+}
+
+// ── Audit runtime ────────────────────────────────────────────
+export interface PageBundle {
+  url: string;
+  rawHtml: string;
+  renderedHtml?: string;
+  jsonld: unknown[];
+  status: number;
+  fetchedAt: string;
+}
+
+export interface AuditContext {
+  target: ScanTarget;
+  robots: string | null;
+  productPage: PageBundle | null;
+  storePages: Record<string, PageBundle>;
+}
+
+export type CheckResult =
+  | { score: 0 | 50 | 100; evidence?: string }
+  | { status: "pending" | "not_applicable"; evidence?: string };
+
+export type CheckRunner = (criterion: Criterion, ctx: AuditContext) => CheckResult | Promise<CheckResult>;
+
+// ── Audit report ─────────────────────────────────────────────
+export interface CriterionResult {
+  criterionId: string;
+  score: 0 | 50 | 100 | null;
+  status: "scored" | "pending" | "not_applicable";
+  weight: CriterionWeight;
+  evidence?: string;
+}
+
+export interface GroupScore { group: string; area: AuditArea; score: number; weightSum: number; }
+
+export interface AuditReport {
+  id: string;
+  target: ScanTarget;
+  overallScore: number;
+  scoredCount: number;
+  pendingCount: number;
+  groups: GroupScore[];
+  criteria: CriterionResult[];
+  generatedAt: string;
 }
