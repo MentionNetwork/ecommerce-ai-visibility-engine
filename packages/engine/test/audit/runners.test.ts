@@ -54,6 +54,12 @@ describe("served_html_has_product_data", () => {
   test("0 when data only appears after render (JS trap)", () => {
     expect(run("served_html_has_product_data", {}, { productPage: page({ rawHtml: "<div id=app></div>", renderedHtml: "Glow Serum 28" }) })).toMatchObject({ score: 0 });
   });
+  test("50 when exactly one of name/price is in raw HTML", () => {
+    expect(run("served_html_has_product_data", {}, { productPage: page({ rawHtml: "<h1>Glow Serum</h1>" }) })).toMatchObject({ score: 50 });
+  });
+  test("0 when neither name nor price is in served HTML and there is no rendered HTML", () => {
+    expect(run("served_html_has_product_data", {}, { productPage: page({ rawHtml: "<div id=app></div>" }) })).toMatchObject({ score: 0 });
+  });
   test("not_applicable with no product page", () => {
     expect(run("served_html_has_product_data", {}, { productPage: null })).toMatchObject({ status: "not_applicable" });
   });

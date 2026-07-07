@@ -55,11 +55,12 @@ const served_html_has_product_data: CheckRunner = (_c, ctx) => {
   const nameRaw = p.rawHtml.includes(title);
   const priceRaw = p.rawHtml.includes(price);
   if (nameRaw && priceRaw) return { score: 100, evidence: "Product name and price present in served HTML" };
+  if (nameRaw || priceRaw) return { score: 50, evidence: `Partial in served HTML (name: ${nameRaw}, price: ${priceRaw})` };
   const r = p.renderedHtml;
-  if (r && (r.includes(title) || r.includes(price)) && !nameRaw && !priceRaw) {
+  if (r && (r.includes(title) || r.includes(price))) {
     return { score: 0, evidence: "Product data only appears after JavaScript renders — AI sees an empty page" };
   }
-  return { score: 50, evidence: `Partial in served HTML (name: ${nameRaw}, price: ${priceRaw})` };
+  return { score: 0, evidence: "Product name and price not found in served HTML" };
 };
 
 function collectNodes(nodes: unknown[]): Record<string, unknown>[] {
