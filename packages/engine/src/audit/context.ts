@@ -6,12 +6,13 @@ export async function buildContext(
   criteria: Criterion[],
   fetcher: PageFetcherPort,
 ): Promise<AuditContext> {
-  const robots = await fetcher.getRobots(target.store.domain);
+  let robots: string | null = null;
+  try { robots = await fetcher.getRobots(target.store.domain); } catch { /* transient fetch failure */ }
 
   let productPage: PageBundle | null = null;
   if (target.product.url) {
-    productPage = await fetcher.getRaw(target.product.url);
-    if (fetcher.getRendered) {
+    try { productPage = await fetcher.getRaw(target.product.url); } catch { /* transient fetch failure */ }
+    if (productPage && fetcher.getRendered) {
       try { productPage.renderedHtml = await fetcher.getRendered(target.product.url); } catch { /* headless optional */ }
     }
   }

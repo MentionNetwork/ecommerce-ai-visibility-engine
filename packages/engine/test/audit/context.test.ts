@@ -33,4 +33,22 @@ describe("buildContext", () => {
     const ctx = await buildContext({ ...target, product: { ...target.product, url: undefined } }, [], fetcher);
     expect(ctx.productPage).toBeNull();
   });
+
+  test("degrades to robots: null when the robots fetch throws", async () => {
+    const fetcher = new FakePageFetcher(null, { "https://glow.ae/serum": { rawHtml: "<h1>Serum</h1>" } }, { throwRobots: true });
+    const ctx = await buildContext(target, [], fetcher);
+    expect(ctx.robots).toBeNull();
+    expect(ctx.productPage?.rawHtml).toContain("Serum");
+  });
+
+  test("degrades to productPage: null when the mandatory product-page fetch throws", async () => {
+    const fetcher = new FakePageFetcher(
+      "User-agent: *\nDisallow:",
+      {},
+      { throwRawUrls: ["https://glow.ae/serum"] },
+    );
+    const ctx = await buildContext(target, [], fetcher);
+    expect(ctx.productPage).toBeNull();
+    expect(ctx.robots).toContain("User-agent");
+  });
 });
