@@ -93,6 +93,18 @@ apps/                  server · web · cli · desktop
 
 ---
 
+## Connectors — works with your store
+
+Runtime (above) is *where the engine runs*. A **connector** is *what it connects to* — the store platform it reads product facts from and writes fixes to. On one of these?
+
+| Platform | Native integration | Auth | Status |
+|---|---|---|---|
+| **Shopify** | Shopify App | OAuth | 🟡 in progress |
+| **WooCommerce** | WooCommerce plugin | REST API key | 🟡 in progress |
+| **Custom / any store** | site snippet | one-time paste | 🟡 in progress |
+| **Magento · BigCommerce · Wix · …** | community connector | varies | ⚪ open to build |
+| **Your platform** | [connector-template](https://github.com/MentionNetwork/connector-template) | — | build it |
+
 # 🛍️ Shopify App
 
 The Shopify integration ships as a **Shopify App** — the native artifact Shopify merchants already know, installed in a click from the Shopify Admin. Under the hood it's `mn-connector-shopify`, a `SiteConnector` that plugs your store into the Mention Network engine. The engine core never learns it's Shopify; it only speaks `SiteConnector` and `Prescription`, and the app is the native skin over those contracts.
@@ -121,7 +133,14 @@ The WooCommerce integration ships as a **WooCommerce plugin** — a WordPress pl
 
 **A note on naming.** It's a **WooCommerce** plugin, not a generic "WordPress plugin": it reads WooCommerce product data (prices, stock, variations) and does nothing useful on a WordPress site without WooCommerce. The ecommerce focus is the point.
 
-> **One engine, native integrations.** Both connectors are the same shape — `detect → connect → read → (plan → dry-run → apply → rollback)` — differing only in auth and how they translate a `Prescription` into platform-native operations. New platforms (Magento, BigCommerce, Wix, custom sites via a snippet) plug in the same way; see [connector-template](https://github.com/MentionNetwork/connector-template).
+# 🔌 Custom stores &amp; any platform
+
+No Shopify or WooCommerce? A store on a custom stack — or Magento, BigCommerce, Wix, Squarespace — still works through the same engine, two ways:
+
+- **Site snippet (the catch-all).** For *any* site, a small snippet you paste once lets Mention Network read your served pages (product facts, schema, content) and apply content/schema fixes — no platform API needed. This covers the long tail, including the millions of "custom cart" stores that aren't on a named platform.
+- **A dedicated connector.** For a platform with its own API, a connector gives deeper read/write (structured product data, native fixes). Any developer builds one from [connector-template](https://github.com/MentionNetwork/connector-template) and lists it in the [registry](https://github.com/MentionNetwork/registry) as `mn-connector-<platform>` — the engine picks it up with no core change.
+
+> **One engine, native integrations.** Every connector is the same shape — `detect → connect → read → (plan → dry-run → apply → rollback)` — differing only in auth and how it translates a platform-agnostic `Prescription` into native operations. Add a platform, and the whole diagnose → treat loop works there unchanged.
 
 ## License
 
