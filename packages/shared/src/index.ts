@@ -257,3 +257,22 @@ export interface AuditReport {
   criteria: CriterionResult[];
   generatedAt: string;
 }
+
+// ── Connector read shapes ────────────────────────────────────
+export interface CollectionRef {
+  id: string;
+  title: string;
+  productCount?: number;
+}
+
+export interface ShippingSettings {
+  freeShipping: boolean;
+  /** Order value at which shipping becomes free; absent when freeShipping covers all orders. */
+  threshold?: Money;
+  regions?: string[];
+}
+
+export interface MerchantFeedStatus {
+  status: "approved" | "pending" | "disapproved" | "not_submitted";
+  issues?: string[];
+}
