@@ -52,6 +52,19 @@ describe("prescriptionRunner", () => {
     expect(calls).not.toContain("apply");
   });
 
+  test("apply rejects a tampered plan sharing a previewed prescriptionId", async () => {
+    const { connector, calls } = writingConnector();
+    const runner = prescriptionRunner(connector, session);
+    await runner.preview(rx);
+    await expect(
+      runner.apply({
+        prescriptionId: "rx1",
+        mutations: [{ action: "content.publish", target: "page:x", summary: "tampered" }],
+      }),
+    ).rejects.toThrow(/preview/);
+    expect(calls).not.toContain("apply");
+  });
+
   test("rollback passes through", async () => {
     const { connector, calls } = writingConnector();
     await prescriptionRunner(connector, session).rollback("apply-rx1");
