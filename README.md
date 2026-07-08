@@ -83,6 +83,7 @@ packages/
 ├── shared/            commerce contracts: Store, Product, Offer, Retailer, Intent, Report, Prescription
 ├── packs/             pack schema (Apache-2.0) + base/ecommerce + industries/beauty
 ├── connector-sdk/     SiteConnector interface (Apache-2.0)
+├── connector-bridge/  adapts a connected SiteConnector into engine ports; enforces dry-run → apply
 ├── providers/         byok-openrouter · mention-cloud
 ├── storage-sqlite/    desktop/CLI storage
 ├── storage-postgres/  server storage
